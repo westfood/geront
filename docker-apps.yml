@@ -1,0 +1,9 @@
+- name: Common configuration for all servers
+  hosts: all
+  vars: 
+    docker: 
+      - { image: 'library/ghost:alpine', name: ghost, ports: '80:2368', state: started }
+      - { image: 'library/nginx:alpine', name: nginx, ports: '8080:80', state: started }
+
+  roles:
+  - NLCR.docker

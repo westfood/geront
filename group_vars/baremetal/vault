@@ -1,0 +1,11 @@
+admins:
+    rudolf:
+      name: Rudolf Kreibich
+      mail: rudolf.kreibich@nkp.cz
+      uid: 1000
+      key: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAklZs1w9aCjt5kuJyhQRUgYcmLWb7Ig5celywld68xKGXEqXWA6xeUwsr7dWI4n0rmi8n//8vqXR9grhtPzk2oM0EbzdnHzJPgw15d2L3vnJTRrTR4incaiQPbcpAcWEdh89lgsuuIjTwXnwSlVL/703JxVxetoAlBYSo2QvB5uU='
+    ansible:
+      name: Ansible Automation
+      mail: rudolf.kreibich@nkp.cz
+      uid: 1020
+      key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbs/dnR9FSzkITv6ujVEybaynYEqurRptWqrqfMheTxbZ81uJQwHtMEkaK8wvU2Bn610++nTKacg0y6BsWS6U7v91fG8PXaB9yZfQV+0+0uqUSFQXpVOIi9xfPTCDOW7PSBblLvb2IQZShPOPIr6k202K5E5bitrtqbjWOAFSYxQ6Z7fZjkVsNyGJn+qEKQP6hm96ih7XdBuCJm9Be6CQ8W0MVkpQv5S1H/pOeQR/k3VqfNl/Tunj6K0GgtWy/C1FCQ2Ce9he8jHJHSNBt8mnWRM3odQELmCNjL4d2VnvpIVR02eGUk8GqDAxZ1bnIHFO+zHQfcUa7JVSGniUNthnr'
