@@ -1,6 +1,13 @@
 - name: Setting storage related tasks
   hosts: all
   tasks:
-    - name: Install NTFS package
+    - name: OS provision
       package:
-        name: ntfs-3g, ntfsprogs
+        name: ntfs-3g, ntfsprogs, samba, samba-client, samba-common
+
+    - name: NTFS is configured
+      mount: 
+        path: /mnt/ntfs
+        src: /dev/sda2
+        fstype: ntfs-3g
+        state: mounted
