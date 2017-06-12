@@ -1,0 +1,6 @@
+- name: Setting storage related tasks
+  hosts: all
+  tasks:
+    - name: Install NTFS package
+      package:
+        name: ntfs-3g, ntfsprogs
