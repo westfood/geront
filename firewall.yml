@@ -1,0 +1,5 @@
+- name: Common configuration for all servers
+  hosts: all
+  roles:
+  - role: NLCR.firewall
+    open_service: http, https
