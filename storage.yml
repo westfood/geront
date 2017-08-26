@@ -3,7 +3,7 @@
   tasks:
     - name: OS provision
       package:
-        name: ntfs-3g, ntfsprogs, samba, samba-client, samba-common
+        name: ntfs-3g, ntfsprogs, samba, samba-client, samba-common, policycoreutils-python
 
     - name: NTFS is configured and mounted
       mount: 
@@ -11,3 +11,59 @@
         src: /dev/sda2
         fstype: ntfs-3g
         state: mounted
+        opts: 'defaults,users'
+
+    - name: Set rights for /mnt/ntfs
+      file:
+        path: /mnt/ntfs/
+        state: directory
+        owner: nobody
+        group: nobody
+        mode: 0755
+        recurse: yes
+
+    - name: SELINUX context for /mnt/ntfs
+      sefcontext:
+        path: /mnt/ntfs
+        setype: samba_share_t
+
+    - name: Setting Samba workgroup and netbios name.
+      replace:
+        path: '{{ item.path | default("/etc/samba/smb.conf") }}'
+        regexp: '{{ item.regexp }}'
+        replace: '{{ item.line }}'
+        validate: 'testparm -s %s'
+      with_items:
+        - { regexp: "^\tworkgroup = MYGROUP$", line: "\tworkgroup = TROJA" }
+        - { regexp: "^;\tnetbios name = MYSERVER$", line: "\tnetbios name = Filmy" }
+        - { regexp: "^;\tdns proxy = yes$", line: "\tdns proxy = no" }
+
+    - name: Setting map to guest
+      lineinfile:
+        path: /etc/samba/smb.conf
+        insertafter: "\tnetbios name = Filmy"
+        line: "\tmap to guest = Bad User"
+
+    - name: Setting shares
+      blockinfile:
+        path: /etc/samba/smb.conf
+        insertafter: '#============================ Share Definitions =============================='
+        validate: 'testparm -s %s'
+        content: |
+          [ filmy ]
+          path = /mnt/ntfs
+          public = yes
+          only guest = yes
+          read only = no
+          writable = yes
+          guest ok = yes
+          browsable = yes
+
+    - name: Samba services smb and nmb are running
+      service:
+        name: '{{ item }}'
+        state: started
+        enabled: yes
+      with_items:
+        - smb
+        - nmb
